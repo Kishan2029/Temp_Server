@@ -12,7 +12,7 @@ const session = require('express-session')
 //     cookie: { secure: true }
 // }))
 
-const page1 = "pages/98fcd5ff-5f32-4e5b-b6f8-2ef25620b1b7";
+const page1 = "pages/b1d4cc41-a3fb-47a0-a224-078d90cd7932";
 const page2 = "pages/END_SESSION"
 const jsonResponses = {
     fulfillment_response: { messages: [{ text: { text: [] } }] }, // fulfillment Message
@@ -27,7 +27,6 @@ app.get("/", express.json(), function (req, res) {
 
 app.post("/webhook", express.json(), function (req, res) {
     console.log("inside webhook")
-    const jsonRes = { message: "Welcome to Chatbot" };
     const jsonResponse = JSON.parse(JSON.stringify(jsonResponses)); // clone the response structure
     const page = req.body.pageInfo.currentPage.search("pages/");
 
