@@ -36,7 +36,7 @@ app.post("/webhook", express.json(), function (req, res) {
         jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 2"];
     } else {
         jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
-        jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 1"];
+        jsonResponse.fulfillment_response.messages[0].text.text = ["I am from upload_page."];
     }
 
 
