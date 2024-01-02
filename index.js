@@ -25,7 +25,7 @@ app.get("/", express.json(), function (req, res) {
     res.status(200).send(jsonRes);
 });
 
-app.get("/webhook", express.json(), function (req, res) {
+app.post("/webhook", express.json(), function (req, res) {
     console.log("inside webhook")
     const jsonRes = { message: "Welcome to Chatbot" };
     const jsonResponse = JSON.parse(JSON.stringify(jsonResponses)); // clone the response structure
