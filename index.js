@@ -52,7 +52,7 @@ app.post("/webhook2", express.json(), function (req, res) {
 
 
 
-    const flag = false;
+    const flag = true;
     if (flag) {
         jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + page2;
         jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 2"];
