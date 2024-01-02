@@ -12,7 +12,7 @@ const session = require('express-session')
 //     cookie: { secure: true }
 // }))
 
-const page1 = "pages/b1d4cc41-a3fb-47a0-a224-078d90cd7932";
+const verifiacation = "pages/b1d4cc41-a3fb-47a0-a224-078d90cd7932";
 const page2 = "pages/END_SESSION"
 const jsonResponses = {
     fulfillment_response: { messages: [{ text: { text: [] } }] }, // fulfillment Message
@@ -35,9 +35,32 @@ app.post("/webhook", express.json(), function (req, res) {
         jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + page2;
         jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 2"];
     } else {
-        jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + page1;
+        jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
         jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 1"];
     }
+
+
+
+    res.status(200).send(jsonResponse);
+});
+
+
+app.post("/webhook2", express.json(), function (req, res) {
+    console.log("inside webhook2")
+    const jsonResponse = JSON.parse(JSON.stringify(jsonResponses)); // clone the response structure
+    const page = req.body.pageInfo.currentPage.search("pages/");
+
+
+
+    const flag = false;
+    if (flag) {
+        jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + page2;
+        jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 2"];
+    } else {
+        jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
+        jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Verification Page"];
+    }
+
 
 
 
