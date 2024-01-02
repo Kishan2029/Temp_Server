@@ -26,6 +26,7 @@ app.get("/", express.json(), function (req, res) {
 });
 
 app.get("/webhook", express.json(), function (req, res) {
+    console.log("inside webhook")
     const jsonRes = { message: "Welcome to Chatbot" };
     const jsonResponse = JSON.parse(JSON.stringify(jsonResponses)); // clone the response structure
     const page = req.body.pageInfo.currentPage.search("pages/");
