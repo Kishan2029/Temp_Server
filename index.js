@@ -30,12 +30,16 @@ app.post("/webhook", express.json(), function (req, res) {
     const jsonResponse = JSON.parse(JSON.stringify(jsonResponses)); // clone the response structure
     const page = req.body.pageInfo.currentPage.search("pages/");
 
+    jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
+    jsonResponse.fulfillment_response.messages[0].text.text = ["I am from upload_page."];
+
+
     const flag = false;
     if (flag) {
-        jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + page2;
+        // jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + page2;
         jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 2"];
     } else {
-        jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
+        // jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
         jsonResponse.fulfillment_response.messages[0].text.text = ["I am from upload_page."];
     }
 
