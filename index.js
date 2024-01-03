@@ -13,7 +13,8 @@ const session = require('express-session')
 // }))
 
 const verifiacation = "pages/b1d4cc41-a3fb-47a0-a224-078d90cd7932";
-const page2 = "pages/END_SESSION"
+const endSession = "pages/END_SESSION";
+
 const jsonResponses = {
     fulfillment_response: { messages: [{ text: { text: [] } }] }, // fulfillment Message
     target_page: "", // target page
@@ -25,49 +26,32 @@ app.get("/", express.json(), function (req, res) {
     res.status(200).send(jsonRes);
 });
 
-app.post("/webhook", express.json(), function (req, res) {
-    console.log("inside webhook")
+app.post("/uploadFile", express.json(), function (req, res) {
+    console.log("inside uploadFile")
     const jsonResponse = JSON.parse(JSON.stringify(jsonResponses)); // clone the response structure
     const page = req.body.pageInfo.currentPage.search("pages/");
 
-    jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
+    // jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
     jsonResponse.fulfillment_response.messages[0].text.text = ["I am from upload_page."];
-
-
-    const flag = false;
-    if (flag) {
-        // jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + page2;
-        jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 2"];
-    } else {
-        // jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
-        jsonResponse.fulfillment_response.messages[0].text.text = ["I am from upload_page."];
-    }
-
-
 
     res.status(200).send(jsonResponse);
 });
 
 
-app.post("/webhook2", express.json(), function (req, res) {
-    console.log("inside webhook2")
+app.post("/verify", express.json(), function (req, res) {
+    console.log("inside verify")
     const jsonResponse = JSON.parse(JSON.stringify(jsonResponses)); // clone the response structure
     const page = req.body.pageInfo.currentPage.search("pages/");
 
-
-
-    const flag = true;
-    if (flag) {
-        jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + page2;
-        jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 2"];
-    } else {
-        // jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
-        jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Verification Page"];
-    }
-
-
-
-
+    jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Verification Page"];
+    // const flag = true;
+    // if (flag) {
+    //     jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + endSession;
+    //     jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Page 2"];
+    // } else {
+    //     // jsonResponse.target_page = req.body.pageInfo.currentPage.substr(0, page) + verifiacation;
+    //     jsonResponse.fulfillment_response.messages[0].text.text = ["Helloooo from Verification Page"];
+    // }
     res.status(200).send(jsonResponse);
 });
 app.listen(port, () => {
